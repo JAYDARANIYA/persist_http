@@ -8,6 +8,8 @@ class PresistHttp {
   /// Port to connect deault is 443 in case of http is 80
   int _port = 443;
 
+  bool forceHttp = false;
+
   /// Socket manager
   final SocketManager _socketManager = SocketManager();
 
@@ -15,7 +17,7 @@ class PresistHttp {
   /// call [connect] to establish connection with server or when call endpoint it will be called
   /// [url] URL without query parameters or https:// or http://
   /// [port] Port to connect deault is 443 in case of http define 80
-  PresistHttp(String url, [int port = 443]) {
+  PresistHttp(String url, [int port = 443, this.forceHttp = false]) {
     _url = url;
     _port = port;
   }
@@ -25,7 +27,7 @@ class PresistHttp {
     if (_socketManager.isConnected) {
       return;
     }
-    await _socketManager.connect(_url, _port);
+    await _socketManager.connect(_url, _port, forceHttp);
   }
 
   /// Close connection with server

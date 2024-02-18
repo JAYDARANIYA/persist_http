@@ -11,8 +11,8 @@ class SocketManager {
 
   bool isConnected = false;
 
-  Future<void> connect(String url, int port) async {
-    if (port != 80 && port != 44) {
+  Future<void> connect(String url, int port, bool forceHttp) async {
+    if (port != 80 && port != 44 && !forceHttp) {
       await _connectSecureSocket(url, port);
     } else {
       await _connectSocket(url, port);
